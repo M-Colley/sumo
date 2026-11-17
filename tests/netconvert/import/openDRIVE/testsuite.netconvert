@@ -50,3 +50,6 @@ offset
 
 # import stopLine and waitingLine (ticket #16682)
 signal_priority
+
+# Apply OpenDRIVE controller groups at multiple junctions and traffic light programs
+signal_groups

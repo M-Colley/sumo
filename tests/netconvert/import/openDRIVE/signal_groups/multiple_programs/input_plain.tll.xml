@@ -1,0 +1,22 @@
+<tlLogics>
+    <tlLogic id="A" type="static" programID="1" offset="0">
+        <phase duration="30" state="Gr"/>
+        <phase duration="30" state="rG"/>
+    </tlLogic>
+    <tlLogic id="B" type="static" programID="1" offset="0">
+        <phase duration="30" state="GG"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="1" offset="0">
+        <phase duration="30" state="GG"/>
+    </tlLogic>
+    <tlLogic id="A" type="static" programID="2" offset="0">
+        <phase duration="30" state="Gr"/>
+        <phase duration="30" state="rG"/>
+    </tlLogic>
+    <tlLogic id="B" type="static" programID="2" offset="0">
+        <phase duration="30" state="GG"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="2" offset="0">
+        <phase duration="30" state="GG"/>
+    </tlLogic>
+</tlLogics>

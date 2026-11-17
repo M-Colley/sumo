@@ -404,39 +404,40 @@ void
 NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
     // collect connections with controllerID which can be controlled together
     Definitions definitions = getDefinitions();
-    std::map<std::string, NBTrafficLightDefinition*> defsToGroup;
-    std::map<std::string, std::map<std::string, std::set<int>>> controllerID2tlIndex;
+    Definitions defsToGroup;
+    std::map<std::pair<std::string, std::string>, std::map<std::string, std::set<int>>> controllerID2tlIndex;
     for (NBTrafficLightDefinition* def : definitions) {
         bool makeGroups = false;
         NBConnectionVector& connections = def->getControlledLinks();
-        std::string defID = def->getID();
+        const auto defKey = std::make_pair(def->getID(), def->getProgramID());
 
         for (NBConnection conn : connections) {
             std::string controllerID = conn.getFrom()->getConnection(conn.getFromLane(), conn.getTo(), conn.getToLane()).getParameter("controllerID");
             if (controllerID != "") {
-                if (controllerID2tlIndex.find(defID) == controllerID2tlIndex.end()) {
-                    controllerID2tlIndex[defID][controllerID] = std::set<int>({ conn.getTLIndex() });
-                } else if (controllerID2tlIndex[defID].find(controllerID) != controllerID2tlIndex[defID].end()) {
-                    controllerID2tlIndex[defID][controllerID].insert(conn.getTLIndex());
+                if (controllerID2tlIndex.find(defKey) == controllerID2tlIndex.end()) {
+                    controllerID2tlIndex[defKey][controllerID] = std::set<int>({ conn.getTLIndex() });
+                } else if (controllerID2tlIndex[defKey].find(controllerID) != controllerID2tlIndex[defKey].end()) {
+                    controllerID2tlIndex[defKey][controllerID].insert(conn.getTLIndex());
                 } else {
-                    controllerID2tlIndex[defID][controllerID] = std::set<int>({ conn.getTLIndex() });
+                    controllerID2tlIndex[defKey][controllerID] = std::set<int>({ conn.getTLIndex() });
                 }
-                makeGroups = controllerID2tlIndex[defID][controllerID].size() > 1 || makeGroups;
+                makeGroups = controllerID2tlIndex[defKey][controllerID].size() > 1 || makeGroups;
             }
         }
         if (makeGroups) {
-            defsToGroup[def->getID()] = def;
+            defsToGroup.push_back(def);
         }
     }
-    bool same = true;
-    for (NBTrafficLightLogic* computed : getComputed()) {
-        const std::string computedID = computed->getID();
-        if (defsToGroup.find(computedID) != defsToGroup.end()) {
+    for (NBTrafficLightDefinition* def : defsToGroup) {
+        const auto defKey = std::make_pair(def->getID(), def->getProgramID());
+        NBTrafficLightLogic* computed = getLogic(defKey.first, defKey.second);
+        if (computed != nullptr) {
+            bool same = true;
             // remember corresponding tl indices and check if they can be joined
             // execute tl index joins if possible
             const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = computed->getPhases();
             std::vector<int> major2minor;
-            for (const auto& indexSet : controllerID2tlIndex[computedID]) {
+            for (const auto& indexSet : controllerID2tlIndex[defKey]) {
                 if (indexSet.second.size() < 2) {
                     continue;
                 }
@@ -466,9 +467,9 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                 }
             }
             if (same) {
-                NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(defsToGroup[computedID]);
+                NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
                 if (lDef == nullptr) {
-                    lDef = new NBLoadedSUMOTLDef(*defsToGroup[computedID], *computed);
+                    lDef = new NBLoadedSUMOTLDef(*def, *computed);
                     lDef->setParticipantsInformation();
                     for (int index : major2minor) { // update the signal states (G -> g where needed)
                         for (int i = 0; i < (int)phases.size(); i++) {
@@ -479,7 +480,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     }
                     // join signal groups, update the connections
                     std::vector<int> indexToRemove;
-                    for (const auto& indexSet : controllerID2tlIndex[computedID]) {
+                    for (const auto& indexSet : controllerID2tlIndex[defKey]) {
                         int minIndex = *indexSet.second.begin();
                         for (int index : indexSet.second) {
                             if (index != minIndex) {
@@ -491,17 +492,16 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     // remove unused indices from signal programs
                     lDef->cleanupStates();
                     for (NBNode* node : lDef->getNodes()) {
-                        node->removeTrafficLight(defsToGroup[computedID]);
+                        node->removeTrafficLight(def);
                         node->addTrafficLight(lDef);
                     }
-                    removeProgram(defsToGroup[computedID]->getID(), defsToGroup[computedID]->getProgramID());
+                    removeProgram(def->getID(), def->getProgramID());
                     insert(lDef);
                     computeSingleLogic(oc, lDef);
                 }
             } else { // TODO: try other strategy to build signal groups
                 WRITE_WARNINGF(TL("Was not able to apply the OpenDRIVE signal group information onto the signal program of traffic light % generated by SUMO."), computed->getID());
             }
-            break;
         }
     }
 }

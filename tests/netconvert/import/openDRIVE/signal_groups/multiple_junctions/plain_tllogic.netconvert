@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T10:19:30.996494+00:00 by Eclipse SUMO netconvert v1.28.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="controllers"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <formats>
+        <opendrive.signal-groups value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="A" type="static" programID="0" offset="0">
+        <phase duration="42" state="Gr"/>
+        <phase duration="3"  state="yr"/>
+        <phase duration="42" state="rG"/>
+        <phase duration="3"  state="ry"/>
+        <param key="linkSignalID:0" value="A-south"/>
+        <param key="linkSignalID:1" value="A-west"/>
+    </tlLogic>
+    <tlLogic id="B" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+        <param key="linkSignalID:0" value="B-west"/>
+        <param key="linkSignalID:1" value="B-west"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+        <param key="linkSignalID:0" value="C-west"/>
+        <param key="linkSignalID:1" value="C-west"/>
+    </tlLogic>
+
+    <connection from="-1" to="-2" fromLane="0" toLane="0" tl="A" linkIndex="1">
+        <param key="controllerID" value="A"/>
+        <param key="signalID" value="A-west"/>
+    </connection>
+    <connection from="-11" to="-12" fromLane="0" toLane="0" tl="B" linkIndex="0">
+        <param key="controllerID" value="B"/>
+        <param key="signalID" value="B-west"/>
+    </connection>
+    <connection from="-11" to="-12" fromLane="1" toLane="1" tl="B" linkIndex="0">
+        <param key="controllerID" value="B"/>
+        <param key="signalID" value="B-west"/>
+    </connection>
+    <connection from="-21" to="-22" fromLane="0" toLane="0" tl="C" linkIndex="0">
+        <param key="controllerID" value="C"/>
+        <param key="signalID" value="C-west"/>
+    </connection>
+    <connection from="-21" to="-22" fromLane="1" toLane="1" tl="C" linkIndex="0">
+        <param key="controllerID" value="C"/>
+        <param key="signalID" value="C-west"/>
+    </connection>
+    <connection from="-4" to="-5" fromLane="0" toLane="0" tl="A" linkIndex="0">
+        <param key="controllerID" value="A"/>
+        <param key="signalID" value="A-south"/>
+    </connection>
+</tlLogics>

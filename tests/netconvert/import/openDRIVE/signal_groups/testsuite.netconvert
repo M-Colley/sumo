@@ -1,0 +1,5 @@
+# Continue after incompatible controller states and group both following junctions
+multiple_junctions
+
+# Keep each traffic light program paired with its own definition during grouping
+multiple_programs
