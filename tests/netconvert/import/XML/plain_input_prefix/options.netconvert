@@ -1,0 +1,1 @@
+--plain-input-prefix $TEXTTEST_HOME/netconvert/import/XML/public_transport/split_stop_edge/input_plain -o net.net.xml

@@ -114,3 +114,6 @@ merge_geo
 
 # merge 2 geo-referenced networks	with exlicit location data in edges file
 merge_geo2
+
+# import a paired plain XML network using its shared prefix
+plain_input_prefix
