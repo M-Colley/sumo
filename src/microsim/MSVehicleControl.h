@@ -447,7 +447,7 @@ public:
     /** @brief Return the distribution IDs the vehicle type is a member of
     * @param[in] vehType The vehicle type to look for membership in distributions
     */
-    const std::set<std::string> getVTypeDistributionMembership(const std::string& id) const;
+    const std::set<std::string>& getVTypeDistributionMembership(const std::string& id) const;
 
     /// @brief return the vehicle type distribution with the given id
     const RandomDistributor<MSVehicleType*>* getVTypeDistribution(const std::string& typeDistID) const;
