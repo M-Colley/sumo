@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="10.00" id="m">
+        <edge id="district-sink" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="district-source" sampledSeconds="9.00" numEdges="1" traveltime="10.00" overlapTraveltime="10.50" density="9.00" overlapDensity="9.00" laneDensity="9.00" occupancy="4.50" waitingTime="0.00" timeLoss="2.52" speed="10.00" speedRelative="0.72" departed="1" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="324.10" distance="90.03"/>
+    </interval>
+</meandata>

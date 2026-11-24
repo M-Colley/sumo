@@ -92,3 +92,5 @@ taz_missing
 # do not merge TAZs with different source and sink edges
 taz_different_edges
 
+# Keep distinct source and sink IDs for synthetic junction TAZs
+taz_junction

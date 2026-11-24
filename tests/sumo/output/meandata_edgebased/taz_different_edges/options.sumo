@@ -1,1 +1,1 @@
---no-step-log --no-duration-log --net-file=net.net.xml --routes=routes.rou.xml --additional-files=meandata.add.xml --begin 0 --end 10
+--no-step-log --no-duration-log --net-file="$TEXTTEST_HOME/complex/traci/edge/permissions_internal_lane/net.net.xml" --routes=input_routes.rou.xml --additional-files=input_additional.add.xml --begin 0 --end 10

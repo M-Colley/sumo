@@ -3,5 +3,5 @@
         <tazSource id="AB"/>
         <tazSink id="BC"/>
     </taz>
-    <edgeData id="m" period="10" file="taz.xml" aggregate="taz"/>
+    <edgeData id="m" period="10" file="aggregated_60.xml" aggregate="taz"/>
 </additional>

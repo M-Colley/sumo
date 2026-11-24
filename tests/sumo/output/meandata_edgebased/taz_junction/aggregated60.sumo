@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="1.00" id="m">
+        <edge id=":C_4_0-sink" sampledSeconds="0.00" numEdges="0" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id=":C_4_0-source" sampledSeconds="0.00" numEdges="0" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id=":C_5_0-sink" sampledSeconds="0.00" numEdges="0" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id=":C_5_0-source" sampledSeconds="0.00" numEdges="0" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="C-sink" sampledSeconds="0.00" numEdges="3" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="C-source" sampledSeconds="0.00" numEdges="2" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="E-sink" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="E-source" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="N-sink" sampledSeconds="0.00" numEdges="0" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="N-source" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="W-sink" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+        <edge id="W-source" sampledSeconds="0.00" numEdges="1" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" distance="0.00"/>
+    </interval>
+</meandata>

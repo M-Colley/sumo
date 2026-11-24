@@ -643,8 +643,9 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
             return result;
         };
         const std::set<const MSEdge*> tazEdges = getTazEdges(taz);
-        const bool mergeTaz = otherTaz != nullptr && tazEdges == getTazEdges(otherTaz);
-        // only merge source and sink when they represent the same set of edges
+        const std::string realTazID = taz->getParameter("taz");
+        // Only explicitly loaded TAZs can be merged, and only if their edge sets match.
+        const bool mergeTaz = !realTazID.empty() && otherTaz != nullptr && tazEdges == getTazEdges(otherTaz);
         if (mergeTaz && otherTaz->getID() < taz->getID()) {
             continue;
         }
@@ -692,18 +693,8 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
                 }
             }
         }
-        std::string tazID = taz->getID();
-        if (mergeTaz) {
-            for (const std::string& suffix : {"-source", "-sink"}) {
-                if (tazID.size() > suffix.size()
-                        && tazID.compare(tazID.size() - suffix.size(), suffix.size(), suffix) == 0) {
-                    tazID.resize(tazID.size() - suffix.size());
-                    break;
-                }
-            }
-        }
         if (myDumpEmpty || !sumData->isEmpty()) {
-            writePrefix(dev, *sumData, SUMO_TAG_EDGE, tazID);
+            writePrefix(dev, *sumData, SUMO_TAG_EDGE, mergeTaz ? realTazID : taz->getID());
             dev.writeAttr(SUMO_ATTR_NUMEDGES, connected.size());
             for (MeanDataValues* data = sumData; data != nullptr; data = data->getSubData()) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)connected.size(),

@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file="$TEXTTEST_HOME/sumo/junction_model/internalJunction/left_turns_merge/net.net.xml" --additional-files=input_additional.add.xml --junction-taz --end 1
