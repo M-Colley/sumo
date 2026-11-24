@@ -278,6 +278,7 @@ MSVehicleControl::clearState(const bool reinit) {
         delete item.second;
     }
     myVTypeDistDict.clear();
+    myVTypeToDist.clear();
     // delete vehicle types
     for (const auto& item : myVTypeDict) {
         delete item.second;
@@ -479,9 +480,9 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
 
 const std::set<std::string>&
 MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
-    static const std::set<std::string> noMembership;
+    static const std::set<std::string> empty;
     const auto it = myVTypeToDist.find(id);
-    return it == myVTypeToDist.end() ? noMembership : it->second;
+    return it == myVTypeToDist.end() ? empty : it->second;
 }
 
 

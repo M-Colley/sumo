@@ -41,3 +41,6 @@ calibrator
 
 # test error messages on loading a simulation state
 errors
+
+# vehicle type filtering follows distributions from the loaded state
+vTypeDistribution

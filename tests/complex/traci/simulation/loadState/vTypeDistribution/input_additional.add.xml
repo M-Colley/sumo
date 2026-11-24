@@ -1,0 +1,4 @@
+<additional>
+    <edgeData id="selected" edges="AB" vTypes="dist" period="3600" file="counts.xml"/>
+    <edgeData id="all" edges="AB" period="3600" file="counts.xml"/>
+</additional>

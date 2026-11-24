@@ -445,8 +445,9 @@ public:
 
 
     /** @brief Return the distribution IDs the vehicle type is a member of
-    * @param[in] vehType The vehicle type to look for membership in distributions
-    */
+     * @param[in] id The vehicle type to look for membership in distributions
+     * @return A reference valid until the vehicle type is removed or the state is cleared
+     */
     const std::set<std::string>& getVTypeDistributionMembership(const std::string& id) const;
 
     /// @brief return the vehicle type distribution with the given id

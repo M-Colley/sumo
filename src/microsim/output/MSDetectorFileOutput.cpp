@@ -61,8 +61,9 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
     if (veh.isVehicle() == detectsPersons()) {
         return false;
     }
-    if (!myVehicleTypes.empty() && myVehicleTypes.count(veh.getVehicleType().getOriginalID()) == 0) {
-        const auto& vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getOriginalID());
+    const std::string& typeID = veh.getVehicleType().getOriginalID();
+    if (!myVehicleTypes.empty() && myVehicleTypes.count(typeID) == 0) {
+        const auto& vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(typeID);
         bool typeMatches = false;
         for (const auto& vTypeDist : vTypeDists) {
             if (myVehicleTypes.count(vTypeDist) > 0) {
