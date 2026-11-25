@@ -416,7 +416,8 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     const GUIMEVehicle* const veh = static_cast<const GUIMEVehicle*>(mesoVeh);
                     const GUILane* const lane = static_cast<GUILane*>((*myLanes)[veh->getQueIndex()]);
                     assert(this == &veh->getSegment()->getEdge());
-                    const double pos = veh->getPositionOnLane();
+                    // Draw interpolated positions regardless of the simulation output setting.
+                    const double pos = veh->getPositionOnLane(true);
                     const Position p = lane->geometryPositionAtOffset(pos, (double)veh->getMesoPositionOverlap() * 0.5);
                     const double angle = lane->getShape(s.secondaryShape).rotationAtOffset(lane->interpolateLanePosToGeometryPos(pos));
                     veh->drawOnPos(s, p, angle);

@@ -75,8 +75,13 @@ MEVehicle::getBackPositionOnLane(const MSLane* /* lane */) const {
 
 double
 MEVehicle::getPositionOnLane() const {
-    if (MSGlobals::gMesoInterpolatePos && mySegment != nullptr
-            && !MESegment::isInvalid(mySegment) && myQueIndex >= 0 && myQueIndex < mySegment->numQueues()) {
+    return getPositionOnLane(MSGlobals::gMesoInterpolatePos);
+}
+
+
+double
+MEVehicle::getPositionOnLane(bool interpolate) const {
+    if (interpolate && !MESegment::isInvalid(mySegment) && myQueIndex >= 0 && myQueIndex < mySegment->numQueues()) {
         mySegment->updateMesoPositions();
         if (myMesoPositionValid) {
             return myMesoPosition;

@@ -58,6 +58,9 @@ public:
      */
     double getPositionOnLane() const;
 
+    /// @brief Position along the edge using the requested interpolation mode
+    double getPositionOnLane(bool interpolate) const;
+
 
     /** @brief Get the vehicle's position relative to the given lane
      *  @return The back position of the vehicle (in m from the given lane's begin)
