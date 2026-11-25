@@ -129,9 +129,6 @@ public:
     */
     bool vehicleApplies(const SUMOTrafficObject& veh) const;
 
-    /** @brief Warn about configured vehicle types that never matched a vehicle */
-    void checkVTypeUsage() const;
-
     bool personApplies(const MSTransportable& p, int dir) const;
 
 
@@ -163,11 +160,6 @@ public:
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
-
-    /// @brief The configured vehicle types that matched at least one vehicle
-    mutable std::set<std::string> mySeenVehicleTypes;
-    /// @brief Actual vehicle types that were matched through a distribution
-    mutable std::set<std::string> myMatchedVehicleTypes;
 
     /// @brief The upcoming edges to filter by (empty means no filtering)
     std::vector<const MSEdge*> myNextEdges;
