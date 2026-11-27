@@ -63,21 +63,28 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
     }
     if (!myVehicleTypes.empty()) {
         const std::string& originalID = veh.getVehicleType().getOriginalID();
-        if (myVehicleTypes.count(originalID) > 0 || myMatchedVehicleTypes.count(originalID) > 0) {
+        std::lock_guard<std::mutex> lock(myVTypeMutex);
+        if (myVehicleTypes.count(originalID) > 0) {
             mySeenVehicleTypes.insert(originalID);
         } else {
-            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(originalID);
-            bool typeMatches = false;
-            for (const auto& vTypeDist : vTypeDists) {
-                if (myVehicleTypes.count(vTypeDist) > 0) {
-                    mySeenVehicleTypes.insert(vTypeDist);
-                    myMatchedVehicleTypes.insert(originalID);
-                    typeMatches = true;
-                    break;
+            const auto cached = myMatchedVehicleTypes.find(originalID);
+            if (cached != myMatchedVehicleTypes.end()) {
+                if (!cached->second) {
+                    return false;
                 }
-            }
-            if (!typeMatches) {
-                return false;
+            } else {
+                const std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(originalID);
+                bool typeMatches = false;
+                for (const std::string& vTypeDist : vTypeDists) {
+                    if (myVehicleTypes.count(vTypeDist) > 0) {
+                        mySeenVehicleTypes.insert(vTypeDist);
+                        typeMatches = true;
+                    }
+                }
+                myMatchedVehicleTypes[originalID] = typeMatches;
+                if (!typeMatches) {
+                    return false;
+                }
             }
         }
     }
@@ -145,6 +152,7 @@ MSDetectorFileOutput::personApplies(const MSTransportable& p, int dir) const {
 
 void
 MSDetectorFileOutput::checkVTypeUsage() const {
+    std::lock_guard<std::mutex> lock(myVTypeMutex);
     for (const std::string& vType : myVehicleTypes) {
         if (mySeenVehicleTypes.count(vType) == 0) {
             WRITE_WARNINGF(TL("Detector '%' is configured for vehicle type '%' which never showed up in the simulation."),

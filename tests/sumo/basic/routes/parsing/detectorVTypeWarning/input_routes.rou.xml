@@ -1,5 +1,9 @@
 <routes>
     <vType id="D" vClass="passenger"/>
-    <route id="r" edges="AB BC"/>
+    <vType id="other" vClass="passenger"/>
+    <vTypeDistribution id="dist1" vTypes="D"/>
+    <vTypeDistribution id="dist2" vTypes="D"/>
+    <route id="r" edges="beg middle"/>
     <vehicle id="v0" type="D" route="r" depart="0"/>
+    <vehicle id="v1" type="other" route="r" depart="2"/>
 </routes>

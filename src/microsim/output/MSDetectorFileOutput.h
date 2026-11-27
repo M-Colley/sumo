@@ -24,6 +24,8 @@
 #pragma once
 #include <config.h>
 
+#include <map>
+#include <mutex>
 #include <string>
 #include <set>
 
@@ -166,8 +168,10 @@ protected:
 
     /// @brief The configured vehicle types that matched at least one vehicle
     mutable std::set<std::string> mySeenVehicleTypes;
-    /// @brief Actual vehicle types that were matched through a distribution
-    mutable std::set<std::string> myMatchedVehicleTypes;
+    /// @brief Cached distribution-membership match results per vehicle type ID
+    mutable std::map<std::string, bool> myMatchedVehicleTypes;
+    /// @brief Mutex protecting mutable vType tracking and cache state across threads
+    mutable std::mutex myVTypeMutex;
 
     /// @brief The upcoming edges to filter by (empty means no filtering)
     std::vector<const MSEdge*> myNextEdges;
