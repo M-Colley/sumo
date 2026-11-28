@@ -65,6 +65,12 @@ Junction::getPosition(const std::string& junctionID, const bool includeZ) {
 }
 
 
+TraCIPosition
+Junction::getPosition3D(const std::string& junctionID) {
+    return getPosition(junctionID, true);
+}
+
+
 TraCIPositionVector
 Junction::getShape(const std::string& junctionID) {
     return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());

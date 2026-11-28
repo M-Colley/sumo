@@ -39,8 +39,7 @@ print("junction A shape3D", roundShape(traci.junction.getShape3D("A")))
 print("junction B shape3D", roundShape(traci.junction.getShape3D("B")))
 print("junction C shape3D", roundShape(traci.junction.getShape3D("C")))
 position = traci.junction.getPosition("B", True)
-if not (traci.isLibsumo() or traci.isLibtraci()):
-    assert traci.junction.getPosition3D("B") == position
+assert traci.junction.getPosition3D("B") == position
 print("junction B position3D", tuple(round(v, 2) for v in position))
 print("lane shape", roundShape(traci.lane.getShape("E_0")))
 print("lane shape3D", roundShape(traci.lane.getShape3D("E_0")))

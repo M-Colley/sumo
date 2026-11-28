@@ -145,7 +145,7 @@ Lane::getShape(const std::string& laneID) {
         TraCIPosition p;
         p.x = pi->x();
         p.y = pi->y();
-        p.z = INVALID_DOUBLE_VALUE;
+        p.z = pi->z();
         pv.value.push_back(p);
     }
     return pv;
@@ -154,16 +154,7 @@ Lane::getShape(const std::string& laneID) {
 
 TraCIPositionVector
 Lane::getShape3D(const std::string& laneID) {
-    TraCIPositionVector pv;
-    const PositionVector& shp = getLane(laneID)->getShape();
-    for (PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi) {
-        TraCIPosition p;
-        p.x = pi->x();
-        p.y = pi->y();
-        p.z = pi->z();
-        pv.value.push_back(p);
-    }
-    return pv;
+    return Helper::makeTraCIPositionVector(getLane(laneID)->getShape(), true);
 }
 
 

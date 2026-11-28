@@ -209,7 +209,7 @@ public:
             libsumo::TraCIPosition p;
             p.x = ret.readDouble();
             p.y = ret.readDouble();
-            p.z = libsumo::INVALID_DOUBLE_VALUE;
+            p.z = 0.;
             poly.value.emplace_back(p);
         }
     }

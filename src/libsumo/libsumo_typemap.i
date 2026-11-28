@@ -336,11 +336,15 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     $result = PyTuple_New($1.value.size());
     int index = 0;
     for (auto iter = $1.value.begin(); iter != $1.value.end(); ++iter) {
-        if (iter->z != libsumo::INVALID_DOUBLE_VALUE) {
-            PyTuple_SetItem($result, index++, Py_BuildValue("(ddd)", iter->x, iter->y, iter->z));
-        } else {
-            PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
-        }
+        PyTuple_SetItem($result, index++, Py_BuildValue("(dd)", iter->x, iter->y));
+    }
+};
+
+%typemap(out) libsumo::TraCIPositionVector getShape3D {
+    $result = PyTuple_New($1.value.size());
+    int index = 0;
+    for (auto iter = $1.value.begin(); iter != $1.value.end(); ++iter) {
+        PyTuple_SetItem($result, index++, Py_BuildValue("(ddd)", iter->x, iter->y, iter->z));
     }
 };
 
